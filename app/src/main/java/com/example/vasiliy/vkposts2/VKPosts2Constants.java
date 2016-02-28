@@ -12,4 +12,7 @@ public class VKPosts2Constants {
     public static final int VK_ERROR_CODE_CAPTCHA = 14;
     public static final int VK_ERROR_CODE_CLOSE_WALL = 15;
 
+    public static final int VK_TIME_BETWEEN_DO_POST = 1000;
+
+    public static final int INPUT_CAPTCHA_ACTIVITY_RESULT_CODE = 1;
 }
