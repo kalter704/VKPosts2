@@ -2,7 +2,7 @@ package com.example.vasiliy.vkposts2;
 
 import android.test.suitebuilder.annotation.SmallTest;
 
-import com.example.vasiliy.vkposts2.Activitys.PRActivity;
+import com.example.vasiliy.vkposts2.Activitys.MainActivity;
 import com.example.vasiliy.vkposts2.Classes.VKPosts2Constants;
 
 import junit.framework.Assert;
@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 @SmallTest
 public class MainActivityTest {
 
-    private PRActivity PRActivity;
+    private MainActivity MainActivity;
 
     private String nullString = null;
     private String succesfullresponse = "{\"response\":{\"post_id\":1235721}}";
@@ -33,26 +33,26 @@ public class MainActivityTest {
 
     @Before
     public void beforeTests() throws Exception {
-        PRActivity = new PRActivity();
+        MainActivity = new MainActivity();
     }
 
     @Test
     public void testWhatIsResponse() throws Exception {
-        Assert.assertEquals(PRActivity.whatIsResponse(nullString), VKPosts2Constants.ERROR_RESPONSE);
-        Assert.assertEquals(PRActivity.whatIsResponse(succesfullresponse), VKPosts2Constants.SUCCESFULL_RESPONSE);
-        Assert.assertEquals(PRActivity.whatIsResponse(responseWithCaptcha), VKPosts2Constants.RESPONSE_WITH_CAPTCHA);
-        Assert.assertEquals(PRActivity.whatIsResponse(responseWithDoPostInComment), VKPosts2Constants.RESPONSE_WITH_CLOSE_WALL);
+        Assert.assertEquals(MainActivity.whatIsResponse(nullString), VKPosts2Constants.ERROR_RESPONSE);
+        Assert.assertEquals(MainActivity.whatIsResponse(succesfullresponse), VKPosts2Constants.SUCCESFULL_RESPONSE);
+        Assert.assertEquals(MainActivity.whatIsResponse(responseWithCaptcha), VKPosts2Constants.RESPONSE_WITH_CAPTCHA);
+        Assert.assertEquals(MainActivity.whatIsResponse(responseWithDoPostInComment), VKPosts2Constants.RESPONSE_WITH_CLOSE_WALL);
     }
 
     @Test
     public void testGetPostId() throws Exception {
-        Assert.assertEquals(PRActivity.getPostId(nullString), null);
-        Assert.assertEquals(PRActivity.getPostId(stringWithId), "66896044");
+        Assert.assertEquals(MainActivity.getPostId(nullString), null);
+        Assert.assertEquals(MainActivity.getPostId(stringWithId), "66896044");
     }
 
     @Test
     public void testGetCaptcha() throws Exception {
-        Map<String, String> capMap = PRActivity.getCaptcha(stringWithCaptcha);
+        Map<String, String> capMap = MainActivity.getCaptcha(stringWithCaptcha);
         Assert.assertEquals(capMap.get("captchaId"), "607609401370");
         Assert.assertEquals(capMap.get("captchaUrl"), "http://api.vk.com/captcha.php?sid=607609401370&s=1");
     }

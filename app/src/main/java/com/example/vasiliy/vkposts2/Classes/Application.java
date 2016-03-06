@@ -2,7 +2,6 @@ package com.example.vasiliy.vkposts2.Classes;
 
 import android.content.Intent;
 
-import com.example.vasiliy.vkposts2.Activitys.LoginActivity;
 import com.example.vasiliy.vkposts2.Activitys.MainActivity;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKAccessTokenTracker;

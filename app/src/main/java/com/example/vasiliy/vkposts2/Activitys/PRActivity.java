@@ -1,42 +1,37 @@
 package com.example.vasiliy.vkposts2.Activitys;
 
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+        import android.content.Intent;
+        import android.os.AsyncTask;
+        import android.os.Bundle;
+        import android.support.v7.app.AppCompatActivity;
+        import android.util.Log;
+        import android.view.View;
+        import android.widget.Button;
+        import android.widget.ImageView;
+        import android.widget.TextView;
 
-import com.example.vasiliy.vkposts2.R;
-import com.example.vasiliy.vkposts2.Classes.VKPosts2Constants;
-import com.vk.sdk.VKAccessToken;
-import com.vk.sdk.VKCallback;
-import com.vk.sdk.VKScope;
-import com.vk.sdk.VKSdk;
-import com.vk.sdk.api.VKError;
+        import com.example.vasiliy.vkposts2.R;
+        import com.example.vasiliy.vkposts2.Classes.VKPosts2Constants;
+        import com.vk.sdk.VKAccessToken;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+        import org.json.JSONArray;
+        import org.json.JSONException;
+        import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+        import java.io.BufferedReader;
+        import java.io.BufferedWriter;
+        import java.io.IOException;
+        import java.io.InputStream;
+        import java.io.InputStreamReader;
+        import java.io.OutputStream;
+        import java.io.OutputStreamWriter;
+        import java.net.HttpURLConnection;
+        import java.net.MalformedURLException;
+        import java.net.ProtocolException;
+        import java.net.URL;
+        import java.util.HashMap;
+        import java.util.Map;
+        import java.util.Random;
 
 /*
 *
@@ -79,16 +74,17 @@ public class PRActivity extends AppCompatActivity {
             "\uD83C\uDF1A@id327708657 (Главарь банды) \n" +
             "\uD83C\uDF3A@id295591956 (Помощник) \n" +
             "\uD83D\uDC51..:V.I.P:..\uD83D\uDC51 \n" +
-            "⚡\uD83D\uDE3B@id350952179 (Иван Кобра)\n" +
+            "⚡\uD83D\uDE3B@id350952179 (Иван Кобра) \n" +
             "⚡\uD83D\uDE3A@id322157495 (Лиза Драганова) \n" +
             "⚡\uD83D\uDE3C@id348732714 (Виктория Смирнова) \n" +
             "⚡\uD83D\uDE40@ppfer (Василиса Карпова) \n" +
-            "⚡\uD83D\uDE3D \n" +
+            "⚡\uD83D\uDE3D*id210722337 (Лёня Шастин) \n" +
             "\uD83C\uDD92 ..:Участники:..\uD83C\uDD92 \n" +
             "▶\uD83C\uDF86*id.lisa_905236 (Лиза Миронова) \n" +
             "▶\uD83C\uDF86@id342878456 (Diana Gromovay) \n" +
             "▶\uD83C\uDF86*idgromovalex (Александр Громов) \n" +
             "▶\uD83C\uDF86@id350485363 (Артур Великий) \n" +
+            "▶\uD83C\uDF86*staffbetsforever (Дмитрий Артюшенко) \n" +
             "▶\uD83C\uDF86@id339711014 (Ксюша Смирнова) \n" +
             "▶\uD83C\uDF86@maglee (Маргарита Вартанова) \n" +
             "▶\uD83C\uDF86@id215830542 (Надя Князева) \n" +
@@ -97,37 +93,41 @@ public class PRActivity extends AppCompatActivity {
             "▶\uD83C\uDF86*id152100209 (Артём Московский) \n" +
             "▶\uD83C\uDF86*id274157074 (Александра Цветкова) \n" +
             "▶\uD83C\uDF86*likulik95 (Анжелика Волкова) \n" +
-            "▶\uD83C\uDF86*id256931905 (Катя Яроцинская) \n" +
             "▶\uD83C\uDF86@id191473719 (Анастасия Зимогляд) \n" +
             "▶\uD83C\uDF86*id206091203 (Снежана Петровская) \n" +
             "▶\uD83C\uDF86*andy_yt (Андрей Смирнов) \n" +
             "▶\uD83C\uDF86*id351909967 (Леван Горозия) \n" +
             "▶\uD83C\uDF86*id353518304 (Анастасия Малышева) \n" +
-            "▶\uD83C\uDF86*idooooooooooooo0 (Денис Армейцев) \n" +
+            "▶\uD83C\uDF86*marshal3000 (Денис Люксембург) \n" +
             "▶\uD83C\uDF86*id323549885 (Костя Якимчук) \n" +
             "▶\uD83C\uDF86@id262425882 (Алёна Малухина) \n" +
             "▶\uD83C\uDF86@id353541071 (Lànà Màlio) \n" +
-            "▶\uD83C\uDF86@id182681556 (Артур Чуб) \n" +
             "▶\uD83C\uDF86@ivanxxxivan (Ivan Ivanov) \n" +
-            "▶\uD83C\uDF86@id301593284 (Сергей Бережной) \n" +
-            "▶\uD83C\uDF86@id251751623 (Давран Мирзаев) \n" +
             "▶\uD83C\uDF86*galhenok99 (Галина Вязович) \n" +
-            "▶\uD83C\uDF86*id315355009 (Артём Меньшов) \n" +
             "▶\uD83C\uDF86*buratosik (Максим Бастраков) \n" +
-            "▶\uD83C\uDF86*fenix0411 (Лёха Захаров) \n" +
-            "▶\uD83C\uDF86*id318152975 (Кристина Алексеева) \n" +
-            "▶\uD83C\uDF86*id281962175 (Софья Айзенберг) \n" +
-            "▶\uD83C\uDF86*id269084834 (Софья Акилина) \n" +
             "▶\uD83C\uDF86*reishmarina (Марина Хетчикова) \n" +
             "▶\uD83C\uDF86*id190643384 (Владислав Донецкий) \n" +
-            "▶\uD83C\uDF86*id286868674 (Дарья Рожкова) \n" +
-            "▶\uD83C\uDF86*id210722337 (Лёша Шастин) \n" +
             "▶\uD83C\uDF86*roleplayer339 (Август Мирный) \n" +
+            "▶\uD83C\uDF86*idooooooooooooo0 (Денис Армейцев) \n" +
             "▶\uD83C\uDF86*nasim22 (Nasimdzhon Akhmatdzhanov) \n" +
-            "▶\uD83C\uDF86*id282805386 (Иван Дипломов)\n" +
-            "▶\uD83C\uDF86*kamila1323 (Камила Сыздыкова)\n" +
-            "▶\uD83C\uDF86@id337171049 (Карина Аверкина)\n" +
-            "✨Хочешь попасть в Список⁉\uD83D\uDC65 Готов(а) его активно пиарить❓Тогда тебе к нам\uD83D\uDE0F \n" +
+            "▶\uD83C\uDF86*id313006690 (Юлечка Горюнова) \n" +
+            "▶\uD83C\uDF86*id307606780 (Артём Михайлов) \n" +
+            "▶\uD83C\uDF86*id237707511 (Александра Майер) \n" +
+            "▶\uD83C\uDF86*id290367941 (Леонид Смирнов) \n" +
+            "▶\uD83C\uDF86*id236561001 (Кристина Жуванова) \n" +
+            "▶\uD83C\uDF86*id350936292 (Антон Петречук) \n" +
+            "▶\uD83C\uDF86*vladmatushin (Влад Матюшин) \n" +
+            "▶\uD83C\uDF86*id349923770 (Елизавета Новикова) \n" +
+            "▶\uD83C\uDF86*idysalimova2016 (Карина Сычёва) \n" +
+            "▶\uD83C\uDF86*id353556445 (Саня Некрасов) \n" +
+            "▶\uD83C\uDF86*id353580500 (Артём Владимирович) \n" +
+            "▶\uD83C\uDF86*inolek (Катерина Котова) \n" +
+            "▶\uD83C\uDF86*id246901970 (Александр Васильев) \n" +
+            "▶\uD83C\uDF86*id353591749 (Князь Князь) \n" +
+            "▶\uD83C\uDF86*id318654472 (Рамзан Лолуев) \n" +
+            "▶\uD83C\uDF86*id353020432 (Варя Сотникова) \n" +
+            "▶\uD83C\uDF86*ivan16051995 (Иван Булатов)\n" +
+            "✨Хочешь попасть в список⁉\uD83D\uDC65 Готов(а) его активно пиарить❓Тогда тебе к нам\uD83D\uDE0F \n" +
             "➡Пиши @id327708657 (Главарю) \"Хочу в список\"";
 
     private String clubs[] = {
@@ -173,24 +173,16 @@ public class PRActivity extends AppCompatActivity {
         ((Button) findViewById(R.id.btnStart)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isDoPost = true;
-                isStopPosting = false;
-                captchaId = "-1";
-                captchaUrl = "-1";
-                captchaAnswer = "-1";
-                postId = "-1";
-                backgroundSendPosts = new BackgroundSendPosts();
-                backgroundSendPosts.execute();
-                img.setImageResource(R.drawable.galochkacheck);
-                accessToken = VKAccessToken.currentToken().accessToken;
+                stopSending();
+                startSending();
+
             }
         });
 
         ((Button) findViewById(R.id.btnStop)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isStopPosting = true;
-                img.setImageResource(R.drawable.delete);
+                stopSending();
             }
         });
     }
@@ -201,6 +193,24 @@ public class PRActivity extends AppCompatActivity {
         if (backgroundSendPosts != null) {
             backgroundSendPosts.cancel(false);
         }
+    }
+
+    private void startSending() {
+        isDoPost = true;
+        isStopPosting = false;
+        captchaId = "-1";
+        captchaUrl = "-1";
+        captchaAnswer = "-1";
+        postId = "-1";
+        backgroundSendPosts = new BackgroundSendPosts();
+        backgroundSendPosts.execute();
+        img.setImageResource(R.drawable.galochkacheck);
+        accessToken = VKAccessToken.currentToken().accessToken;
+    }
+
+    private void stopSending() {
+        isStopPosting = true;
+        img.setImageResource(R.drawable.delete);
     }
 
     class BackgroundSendPosts extends AsyncTask<Void, Void, Void> {
@@ -543,13 +553,13 @@ public class PRActivity extends AppCompatActivity {
         if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
             @Override
             public void onResult(VKAccessToken res) {
-                Toast.makeText(PRActivity.this, "Good", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Good", Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
             public void onError(VKError error) {
-                Toast.makeText(PRActivity.this, "Bad", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Bad", Toast.LENGTH_SHORT).show();
 
             }
         })) {

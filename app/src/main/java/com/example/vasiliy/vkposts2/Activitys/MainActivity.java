@@ -1,28 +1,36 @@
 package com.example.vasiliy.vkposts2.Activitys;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.vasiliy.vkposts2.Classes.VKPosts2Constants;
 import com.example.vasiliy.vkposts2.R;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
+import com.vk.sdk.util.VKUtil;
+
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String[] scopes = new String[]{VKScope.WALL};
+    private String[] scopes = new String[]{
+            VKScope.FRIENDS,
+            VKScope.WALL
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
+        //System.out.println(Arrays.asList(fingerprints));
 
         VKSdk.login(this, scopes);
 
