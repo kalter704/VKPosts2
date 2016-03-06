@@ -16,6 +16,8 @@ public class VKPosts2Constants {
 
     public static final int VK_RANDOM_TIME_RANGE = 300;
     public static final int VK_TIME_BETWEEN_DO_POST = 1000;
+    public static final int VK_TIME_BETWEEN_ADD_FRIEND = 205;
 
     public static final int INPUT_CAPTCHA_ACTIVITY_RESULT_CODE = 1;
+    public static final int EDIT_LIST_ACTIVITY_RESULT_CODE = 2;
 }

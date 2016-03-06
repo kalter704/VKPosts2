@@ -51,16 +51,38 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/linearLayout2"
         android:layout_marginTop="25dp"
-        android:text="Start" />
+        android:text="Start"
+        android:layout_alignRight="@+id/btnStop"
+        android:layout_alignEnd="@+id/btnStop" />
 
     <Button
         android:id="@+id/btnStop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_marginTop="31dp"
+        android:text="Stop"
         android:layout_below="@+id/btnStart"
-        android:layout_marginTop="37dp"
-        android:text="Stop" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Редактировать список"
+        android:id="@+id/btnGoToEditList"
+        android:layout_alignTop="@+id/btnStart"
+        android:layout_toRightOf="@+id/tvMadePosts"
+        android:layout_toEndOf="@+id/tvMadePosts" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Просмотреть список"
+        android:id="@+id/btnGoToShowList"
+        android:layout_alignTop="@+id/btnStop"
+        android:layout_alignLeft="@+id/btnGoToEditList"
+        android:layout_alignStart="@+id/btnGoToEditList"
+        android:layout_alignRight="@+id/btnGoToEditList"
+        android:layout_alignEnd="@+id/btnGoToEditList" />
 
 </RelativeLayout>

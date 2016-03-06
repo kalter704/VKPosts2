@@ -74,8 +74,15 @@ public class FriendsActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            addAllFrieds();
-            return null;
+            while (true) {
+                String response = addFriends();
+                if(howManyLeft(response) <= 0) {
+                    return null;
+                }
+                long timeWhenEndWait = System.currentTimeMillis() + VKPosts2Constants.VK_TIME_BETWEEN_ADD_FRIEND;
+                while (System.currentTimeMillis() < timeWhenEndWait) {
+                }
+            }
         }
 
         protected void onPostExecute(Void result) {
@@ -86,7 +93,7 @@ public class FriendsActivity extends AppCompatActivity {
 
     }
 
-    private void addAllFrieds() {
+    private String addFriends() {
         String code = "var q = 0;var c = true;var friends = API.friends.getRequests({\"offset\": 0, \"count\": 25, \"extended\": 0, \"need_mutual\": 0, \"out\": 0, \"sort\": 0, \"need_viewed\": 0, \"suggested\": 0});q = q + 1;if(friends.count > 0) {c = true;} else {c = false;}while(c && (q < 20)) {var i = 0;while((i < friends.items.length) && (q < 20)) {API.friends.add({\"user_id\": friends.items[i]});q = q + 1;i = i + 1;}friends = API.friends.getRequests({\"offset\": 0, \"count\": 25, \"extended\": 0, \"need_mutual\": 0, \"out\": 0, \"sort\": 0, \"need_viewed\": 0, \"suggested\": 0});if(friends.count > 0) {c = true;} else {c = false;}}return {\"count\": friends.count};";
         String requestString = "https://api.vk.com/method/execute";
         String params = null;
@@ -97,13 +104,7 @@ public class FriendsActivity extends AppCompatActivity {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        boolean doRequest = true;
-        while (doRequest) {
-            String response = request(requestString, params);
-            if(howManyLeft(response) <= 0) {
-                doRequest = false;
-            }
-        }
+        return request(requestString, params);
     }
 
     private int howManyLeft(String responseString) {

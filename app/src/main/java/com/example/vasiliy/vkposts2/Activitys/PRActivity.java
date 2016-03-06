@@ -65,6 +65,7 @@ public class PRActivity extends AppCompatActivity {
 
     //private String message = "Добавь меня!!!";
 
+    /*
     private String message = "▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬ \n" +
             "░░░░░░░░ДОБАВЛЯЙСЯ░░░░░░░░ \n" +
             "▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬ \n" +
@@ -129,6 +130,9 @@ public class PRActivity extends AppCompatActivity {
             "▶\uD83C\uDF86*ivan16051995 (Иван Булатов)\n" +
             "✨Хочешь попасть в список⁉\uD83D\uDC65 Готов(а) его активно пиарить❓Тогда тебе к нам\uD83D\uDE0F \n" +
             "➡Пиши @id327708657 (Главарю) \"Хочу в список\"";
+    */
+
+    private String message = "";
 
     private String clubs[] = {
             "34985835",
@@ -175,7 +179,6 @@ public class PRActivity extends AppCompatActivity {
             public void onClick(View v) {
                 stopSending();
                 startSending();
-
             }
         });
 
@@ -183,6 +186,24 @@ public class PRActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 stopSending();
+            }
+        });
+
+        ((Button) findViewById(R.id.btnGoToEditList)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopSending();
+                startActivityForResult(new Intent(PRActivity.this, EditListActivity.class), VKPosts2Constants.EDIT_LIST_ACTIVITY_RESULT_CODE);
+            }
+        });
+
+        ((Button) findViewById(R.id.btnGoToShowList)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopSending();
+                Intent intent = new Intent(PRActivity.this, ShowListActivity.class);
+                intent.putExtra("message", message);
+                startActivity(intent);
             }
         });
     }
@@ -540,13 +561,21 @@ public class PRActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == VKPosts2Constants.INPUT_CAPTCHA_ACTIVITY_RESULT_CODE) {
-            isStopPosting = data.getBooleanExtra("isStopPosting", true);
-            if (!isStopPosting) {
-                captchaAnswer = data.getStringExtra("captchaAnswer");
-                isDoPost = true;
-            } else {
-                img.setImageResource(R.drawable.delete);
+        if(resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case VKPosts2Constants.INPUT_CAPTCHA_ACTIVITY_RESULT_CODE:
+                    isStopPosting = data.getBooleanExtra("isStopPosting", true);
+                    if (!isStopPosting) {
+                        captchaAnswer = data.getStringExtra("captchaAnswer");
+                        isDoPost = true;
+                    } else {
+                        img.setImageResource(R.drawable.delete);
+                    }
+                    break;
+                case VKPosts2Constants.EDIT_LIST_ACTIVITY_RESULT_CODE:
+                    message = data.getStringExtra("message");
+                    Log.d("QWERTY", message);
+                    break;
             }
         }
         /*
