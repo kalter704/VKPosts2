@@ -24,10 +24,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Map;
 import java.util.Random;
 
@@ -85,38 +87,20 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     private void addAllFrieds() {
-        String code = "var q = 0;\n" +
-                "var c = true;\n" +
-                "var friends = API.friends.getRequests({\"count\": 25, \"extended\": 0, \"need_mutual\": 0, \"out\": 0, \"need_viewed\": 0, \"suggested\": 0});\n" +
-                "q = q + 1;\n" +
-                "if(friends.count > 0) {\n" +
-                "\tc = true;\n" +
-                "} else {\n" +
-                "\tc = false;\n" +
-                "}\n" +
-                "while(c && (q < 20)) {\n" +
-                "\tvar i = 0;\n" +
-                "\twhile((i < friends.items.length) && (q < 20)) {\n" +
-                "\t\tAPI.friends.add({\"user_id\": friends.items[i]});\n" +
-                "\t\tq = q + 1;\n" +
-                "\t\ti = i + 1;\n" +
-                "\t}\n" +
-                "\tfriends = API.friends.getRequests({\"count\": 25, \"extended\": 0, \"need_mutual\": 0, \"out\": 0, \"need_viewed\": 0, \"suggested\": 0});\n" +
-                "\tif(friends.count > 0) {\n" +
-                "\t\tc = true;\n" +
-                "\t} else {\n" +
-                "\t\tc = false;\n" +
-                "\t}\n" +
-                "}\n" +
-                "return {\"count\": friends.count};";
+        String code = "var q = 0;var c = true;var friends = API.friends.getRequests({\"offset\": 0, \"count\": 25, \"extended\": 0, \"need_mutual\": 0, \"out\": 0, \"sort\": 0, \"need_viewed\": 0, \"suggested\": 0});q = q + 1;if(friends.count > 0) {c = true;} else {c = false;}while(c && (q < 20)) {var i = 0;while((i < friends.items.length) && (q < 20)) {API.friends.add({\"user_id\": friends.items[i]});q = q + 1;i = i + 1;}friends = API.friends.getRequests({\"offset\": 0, \"count\": 25, \"extended\": 0, \"need_mutual\": 0, \"out\": 0, \"sort\": 0, \"need_viewed\": 0, \"suggested\": 0});if(friends.count > 0) {c = true;} else {c = false;}}return {\"count\": friends.count};";
         String requestString = "https://api.vk.com/method/execute";
-        String params = "code=" + code +
-                "&v=5.45" +
-                "&access_token=" + accessToken;
+        String params = null;
+        try {
+            params = "code=" + URLEncoder.encode(code, "UTF-8") +
+                    "&v=5.45" +
+                    "&access_token=" + accessToken;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         boolean doRequest = true;
         while (doRequest) {
             String response = request(requestString, params);
-            if(howManyLeft(response) > 0) {
+            if(howManyLeft(response) <= 0) {
                 doRequest = false;
             }
         }
@@ -150,13 +134,13 @@ public class FriendsActivity extends AppCompatActivity {
     private int getNumberOfApplicationFriends() {
         String requestString = "https://api.vk.com/method/friends.getRequests";
         String params = "offset=0" +
-                "count=1" +
-                "extended=0" +
-                "need_mutual=0" +
-                "out=0" +
-                "sort=0" +
-                "need_viewed=0" +
-                "suggested=0" +
+                "&count=1" +
+                "&extended=0" +
+                "&need_mutual=0" +
+                "&out=0" +
+                "&sort=0" +
+                "&need_viewed=0" +
+                "&suggested=0" +
                 "&v=5.45" +
                 "&access_token=" + accessToken;
         String response = request(requestString, params);
