@@ -1,4 +1,4 @@
-package com.example.vasiliy.vkposts2;
+package com.example.vasiliy.vkposts2.Classes;
 
 public class VKPosts2Constants {
     public static final int DO_POST_ON_WALL= 0;

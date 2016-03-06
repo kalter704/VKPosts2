@@ -1,4 +1,4 @@
-package com.example.vasiliy.vkposts2;
+package com.example.vasiliy.vkposts2.Activitys;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.vasiliy.vkposts2.R;
+import com.example.vasiliy.vkposts2.Classes.VKPosts2Constants;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
@@ -49,11 +51,11 @@ import java.util.Random;
 *
  */
 
-public class MainActivity extends AppCompatActivity {
+public class PRActivity extends AppCompatActivity {
 
     private String accessToken;
 
-    private String[] scopes = new String[]{VKScope.WALL};
+    //private String[] scopes = new String[]{VKScope.WALL};
 
     private int countSendedPosts;
 
@@ -68,78 +70,75 @@ public class MainActivity extends AppCompatActivity {
 
     //private String message = "Добавь меня!!!";
 
-    private String message = "\uD83D\uDCB0Хочешь по 50-100 заявок в день❓\uD83D\uDCB0 \n" +
-            "\uD83D\uDCB0Тогда тебе к нам! Добавь всех из списка \uD83C\uDF1D \n" +
-            "○〰 ○〰 ○〰 ○〰 \n" +
-            "\uD83D\uDCB2АДМИНЫ\uD83D\uDCB2 \n" +
-            "\uD83C\uDF1A @id327708657 (\uD83C\uDF3AАдминка\uD83C\uDF3A) \n" +
-            "\uD83C\uDF1D@id295591956 (\uD83C\uDF37Зам.Админа\uD83C\uDF37) \n" +
-            "\uD83D\uDC51.::VIP::.\uD83D\uDC51 \n" +
-            "\uD83C\uDFAF\uD83D\uDD25@id322157495 (Лиза Драганова)\uD83C\uDF1F \n" +
-            "\uD83C\uDFAF\uD83D\uDD25@id350952179 (Артур Великий)\uD83C\uDF1F \n" +
-            "\uD83C\uDFAF\uD83D\uDD25@ppfer (Дарья Карпова)\uD83C\uDF1F \n" +
-            "\uD83C\uDFAF\uD83D\uDD25@lolkekxaxaxa (Ксюша Цуканова)\uD83C\uDF1F \n" +
-            "\uD83C\uDFAF\uD83D\uDD25@id350485363 (Иван Кобра)\uD83C\uDF1F \n" +
-            "\uD83C\uDFAF\uD83D\uDD25@id348732714 (Виктория Смирнова)\uD83C\uDF1F \n" +
-            "\uD83C\uDF89 УЧАСТНИКИ \uD83C\uDF89 \n" +
-            "✨@id256931905 (Катя Яроцинская)✨ \n" +
-            "✨@maglee (Маргарита Вартанова)✨\n" +
-            "✨@id139163001 (Эдуард Мисько)✨\n" +
-            "✨@id339711014 (Ксюша Смирнова)✨ \n" +
-            "✨@id353032503 (Виктория Королюк)✨ \n" +
-            "✨@id345261648 (Александр Сахаров)✨ \n" +
-            "✨@likesuchka (Андрей Самарин)✨ \n" +
-            "✨@id327470005 (Nikita Lobkov)✨ \n" +
-            "✨@id339711014 (Ксюша Смирнова)✨ \n" +
-            "✨@id307278155 (Екатерина Танкова)✨ \n" +
-            "✨@id191473719 (Анастасия Зимогляд)✨ \n" +
-            "✨@vladdidik (Влад Морозов)✨ \n" +
-            "✨@irishakotya (Ира Кот)✨ \n" +
-            "✨@id136689482 (Оксана Мантаева)✨ \n" +
-            "✨@id351909967 (Нюша Шурочкина)✨ \n" +
-            "✨@id195026644 (Лиза Иванова)✨ \n" +
-            "✨@id342878456 (Diana Gromovay)✨ \n" +
-            "✨@id_avram_0715 (Иван Авраменко)✨ \n" +
-            "✨@id185378233 (Женя Пахар)✨ \n" +
-            "✨@id314056139 (Vasily Kashirskiy)✨ \n" +
-            "✨@id276831637 (Антон Раевский)✨ \n" +
-            "✨*id272287187 (Мария Клименко) \n" +
-            "✨*id187964827 (Соня Семенова)✨ \n" +
-            "✨@id215830542 (Надя Князева)✨ \n" +
-            "✨*id269374102 (Диана Доронина)✨ \n" +
-            "✨*id325078401 (Матвей Алексеев)✨ \n" +
-            "✨*id351481879 (Юля Попадюк)✨ \n" +
-            "✨*id312564048 (Марьяна Балковская)✨ \n" +
-            "✨@id236005361 (Лера Котова)✨ \n" +
-            "✨@arinagertman48 (Арина Гроссман)✨ \n" +
-            "✨@maryana_ro_98 (Марьяна Рожкова)✨ \n" +
-            "✨*julka242 (Юля Судьина)✨ \n" +
-            "✨*id347041471 (Демид Сафин)✨ \n" +
-            "✨*id340590069 (Ильяс Ахмедгалиев)✨ \n" +
-            "✨*id239678829 (Паша Чёрный)✨ \n" +
-            "✨*id261827618 (Настя Кирдяшова)✨ \n" +
-            "✨@id317457117 (Ваня Шульман)✨ \n" +
-            "✨@id334681505 (Настя Братских)✨ \n" +
-            "✨*id152100209 (Артём Московский)✨ \n" +
-            "✨*anbreya_krut (Андрей Кубрак)✨ \n" +
-            "✨*id300551742 (Марьяна Цой)✨ \n" +
-            "✨*id260906258 (Михаил Печерица)✨ \n" +
-            "✨*id339851762 (Александр Николаев)✨ \n" +
-            "✨@id352828898 ( Милая Котейка)✨ \n" +
-            "✨@id345523230 (Иван Рудской)✨\n" +
-            "●▬▬▬▬▬▬▬▬ஜ ۩۞۩ ஜ▬▬▬▬▬▬▬▬● \n" +
-            "Хочешь в список? Пиши им с пометкой \"Хочу в список\"⬇ \n" +
-            "@id327708657(\uD83C\uDF3AАдминке \uD83C\uDF3A) или \n" +
-            "@id295591956 (\uD83C\uDF37Лиле\uD83C\uDF37) \n" +
-            "●▬▬▬▬▬▬▬▬ஜ ۩۞۩ ஜ▬▬▬▬▬▬▬▬●";
+    private String message = "▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬ \n" +
+            "░░░░░░░░ДОБАВЛЯЙСЯ░░░░░░░░ \n" +
+            "▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬ \n" +
+            "\uD83C\uDF89✨Хочешь много заявок в день?\uD83C\uDF89✨ \n" +
+            "\uD83D\uDE1B✨Тогда тебе к нам! Добавь всех из списка⤵✨\uD83D\uDE0B \n" +
+            "\uD83C\uDF80..:Админы:..\uD83C\uDF80 \n" +
+            "\uD83C\uDF1A@id327708657 (Главарь банды) \n" +
+            "\uD83C\uDF3A@id295591956 (Помощник) \n" +
+            "\uD83D\uDC51..:V.I.P:..\uD83D\uDC51 \n" +
+            "⚡\uD83D\uDE3B@id350952179 (Иван Кобра)\n" +
+            "⚡\uD83D\uDE3A@id322157495 (Лиза Драганова) \n" +
+            "⚡\uD83D\uDE3C@id348732714 (Виктория Смирнова) \n" +
+            "⚡\uD83D\uDE40@ppfer (Василиса Карпова) \n" +
+            "⚡\uD83D\uDE3D \n" +
+            "\uD83C\uDD92 ..:Участники:..\uD83C\uDD92 \n" +
+            "▶\uD83C\uDF86*id.lisa_905236 (Лиза Миронова) \n" +
+            "▶\uD83C\uDF86@id342878456 (Diana Gromovay) \n" +
+            "▶\uD83C\uDF86*idgromovalex (Александр Громов) \n" +
+            "▶\uD83C\uDF86@id350485363 (Артур Великий) \n" +
+            "▶\uD83C\uDF86@id339711014 (Ксюша Смирнова) \n" +
+            "▶\uD83C\uDF86@maglee (Маргарита Вартанова) \n" +
+            "▶\uD83C\uDF86@id215830542 (Надя Князева) \n" +
+            "▶\uD83C\uDF86@vladdidik (Влад Морозов) \n" +
+            "▶\uD83C\uDF86@id314056139 (Vasily Kashirskiy) \n" +
+            "▶\uD83C\uDF86*id152100209 (Артём Московский) \n" +
+            "▶\uD83C\uDF86*id274157074 (Александра Цветкова) \n" +
+            "▶\uD83C\uDF86*likulik95 (Анжелика Волкова) \n" +
+            "▶\uD83C\uDF86*id256931905 (Катя Яроцинская) \n" +
+            "▶\uD83C\uDF86@id191473719 (Анастасия Зимогляд) \n" +
+            "▶\uD83C\uDF86*id206091203 (Снежана Петровская) \n" +
+            "▶\uD83C\uDF86*andy_yt (Андрей Смирнов) \n" +
+            "▶\uD83C\uDF86*id351909967 (Леван Горозия) \n" +
+            "▶\uD83C\uDF86*id353518304 (Анастасия Малышева) \n" +
+            "▶\uD83C\uDF86*idooooooooooooo0 (Денис Армейцев) \n" +
+            "▶\uD83C\uDF86*id323549885 (Костя Якимчук) \n" +
+            "▶\uD83C\uDF86@id262425882 (Алёна Малухина) \n" +
+            "▶\uD83C\uDF86@id353541071 (Lànà Màlio) \n" +
+            "▶\uD83C\uDF86@id182681556 (Артур Чуб) \n" +
+            "▶\uD83C\uDF86@ivanxxxivan (Ivan Ivanov) \n" +
+            "▶\uD83C\uDF86@id301593284 (Сергей Бережной) \n" +
+            "▶\uD83C\uDF86@id251751623 (Давран Мирзаев) \n" +
+            "▶\uD83C\uDF86*galhenok99 (Галина Вязович) \n" +
+            "▶\uD83C\uDF86*id315355009 (Артём Меньшов) \n" +
+            "▶\uD83C\uDF86*buratosik (Максим Бастраков) \n" +
+            "▶\uD83C\uDF86*fenix0411 (Лёха Захаров) \n" +
+            "▶\uD83C\uDF86*id318152975 (Кристина Алексеева) \n" +
+            "▶\uD83C\uDF86*id281962175 (Софья Айзенберг) \n" +
+            "▶\uD83C\uDF86*id269084834 (Софья Акилина) \n" +
+            "▶\uD83C\uDF86*reishmarina (Марина Хетчикова) \n" +
+            "▶\uD83C\uDF86*id190643384 (Владислав Донецкий) \n" +
+            "▶\uD83C\uDF86*id286868674 (Дарья Рожкова) \n" +
+            "▶\uD83C\uDF86*id210722337 (Лёша Шастин) \n" +
+            "▶\uD83C\uDF86*roleplayer339 (Август Мирный) \n" +
+            "▶\uD83C\uDF86*nasim22 (Nasimdzhon Akhmatdzhanov) \n" +
+            "▶\uD83C\uDF86*id282805386 (Иван Дипломов)\n" +
+            "▶\uD83C\uDF86*kamila1323 (Камила Сыздыкова)\n" +
+            "▶\uD83C\uDF86@id337171049 (Карина Аверкина)\n" +
+            "✨Хочешь попасть в Список⁉\uD83D\uDC65 Готов(а) его активно пиарить❓Тогда тебе к нам\uD83D\uDE0F \n" +
+            "➡Пиши @id327708657 (Главарю) \"Хочу в список\"";
 
     private String clubs[] = {
             "34985835",
+            "52255475",
+            "24261502",
+            "53294903",
+            "60191872",
+            "33764742",
             "59721672",
-            "60191872",
-            "8337923",
             "46258034",
-            "60191872",
             "13295252"
     };
 
@@ -151,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_pr);
 
         //String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
         //System.out.println(Arrays.asList(fingerprints));
@@ -164,16 +163,12 @@ public class MainActivity extends AppCompatActivity {
         captchaAnswer = "-1";
         postId = "-1";
 
-        VKSdk.login(this, scopes);
-
-
+        //VKSdk.login(this, scopes);
 
         tvMadePost = (TextView) findViewById(R.id.tvMadePosts);
         tvMadePost.setText("Сделано постов = " + String.valueOf(countSendedPosts));
 
         img = (ImageView) findViewById(R.id.imageView2);
-
-        backgroundSendPosts = new BackgroundSendPosts();
 
         ((Button) findViewById(R.id.btnStart)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 captchaUrl = "-1";
                 captchaAnswer = "-1";
                 postId = "-1";
+                backgroundSendPosts = new BackgroundSendPosts();
                 backgroundSendPosts.execute();
                 img.setImageResource(R.drawable.galochkacheck);
                 accessToken = VKAccessToken.currentToken().accessToken;
@@ -260,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
                                 captchaUrl = captchaMap.get("captchaUrl");
                             }
                             isDoPost = false;
-                            Intent intent = new Intent(MainActivity.this, InputCaptchaActivity.class);
+                            Intent intent = new Intent(PRActivity.this, InputCaptchaActivity.class);
                             intent.putExtra("countMadePosts", countSendedPosts);
                             intent.putExtra("captchaUrl", captchaUrl);
                             intent.putExtra("club", clubs[i]);
@@ -297,6 +293,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             tvMadePost.setText("Сделано постов = " + String.valueOf(countSendedPosts));
+            Log.d("QWERTY", "BackgroundSendPosts finish");
         }
 
         @Override
@@ -487,12 +484,13 @@ public class MainActivity extends AppCompatActivity {
 
             OutputStream os = urlConnection.getOutputStream();
 
+            /*
             String jsonParamsString = "owner_id=" + "-" + clubs[0] +
                     "&friends_only=0&from_group=0&" +
                     "message=" + message +
                     "&v=5.45&" +
                     "access_token=" + accessToken;
-
+            */
             //Log.d("QWERTY", "Before: " + jsonParamsString);
 
             BufferedWriter write = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
@@ -517,7 +515,7 @@ public class MainActivity extends AppCompatActivity {
             }
             is.close();
 
-            Log.d("QWERTY", sb.toString());
+            Log.d("JSON_RESPONSE", sb.toString());
 
             return sb.toString();
         } catch (MalformedURLException e) {
@@ -541,21 +539,23 @@ public class MainActivity extends AppCompatActivity {
                 img.setImageResource(R.drawable.delete);
             }
         }
+        /*
         if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
             @Override
             public void onResult(VKAccessToken res) {
-                Toast.makeText(MainActivity.this, "Good", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PRActivity.this, "Good", Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
             public void onError(VKError error) {
-                Toast.makeText(MainActivity.this, "Bad", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PRActivity.this, "Bad", Toast.LENGTH_SHORT).show();
 
             }
         })) {
             super.onActivityResult(requestCode, resultCode, data);
         }
+        */
     }
 
     public int whatIsResponse(String response) {

@@ -1,4 +1,4 @@
-package com.example.vasiliy.vkposts2;
+package com.example.vasiliy.vkposts2.Classes;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.ImageView;
+
+import com.example.vasiliy.vkposts2.R;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -20,7 +22,7 @@ public class ImageManager {
     final static String TAG = "ImageManager";
 
     /** Private constructor prevents instantiation from other classes */
-    ImageManager () {}
+    public ImageManager() {}
 
     public static void fetchImage(final String iUrl, final ImageView iView) {
         if ( iUrl == null || iView == null )

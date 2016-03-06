@@ -1,4 +1,4 @@
-package com.example.vasiliy.vkposts2;
+package com.example.vasiliy.vkposts2.Activitys;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.vasiliy.vkposts2.Classes.ImageManager;
+import com.example.vasiliy.vkposts2.R;
 
 public class InputCaptchaActivity extends AppCompatActivity {
 

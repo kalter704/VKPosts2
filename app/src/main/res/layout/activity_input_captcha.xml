@@ -5,7 +5,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.vasiliy.vkposts2.InputCaptchaActivity">
+    tools:context="com.example.vasiliy.vkposts2.Activitys.InputCaptchaActivity">
 
     <TextView
         android:layout_width="wrap_content"
