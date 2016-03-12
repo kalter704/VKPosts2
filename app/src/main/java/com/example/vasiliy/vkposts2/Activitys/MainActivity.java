@@ -1,5 +1,6 @@
 package com.example.vasiliy.vkposts2.Activitys;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -32,22 +33,36 @@ public class MainActivity extends AppCompatActivity {
         //String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
         //System.out.println(Arrays.asList(fingerprints));
 
+        //com.example.vasiliy.vkposts2.Classes.Application applicationM = new com.example.vasiliy.vkposts2.Classes.Application();
+        //applicationM.onCreate();
+
         VKSdk.login(this, scopes);
 
-        ((Button) findViewById(R.id.btnGoToPR)).setOnClickListener(new View.OnClickListener() {
+        /*
+        if(VKSdk.wakeUpSession(this)) {
+            VKSdk.login(this, scopes);
+        } else {
+            Toast.makeText(MainActivity.this, "FALSE", Toast.LENGTH_SHORT).show();
+        }
+        */
+
+
+        //startActivity(new Intent(MainActivity.this, MenuActivity.class));
+
+        /*
+        if(VKAccessToken.currentToken().isExpired()) {
+            VKSdk.login(this, scopes);
+        } else {
+            startActivity(new Intent(MainActivity.this, MenuActivity.class));
+        }
+        */
+
+        ((Button) findViewById(R.id.btnLogin)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, PRActivity.class));
+                VKSdk.login(MainActivity.this, scopes);
             }
         });
-
-        ((Button) findViewById(R.id.btnGoToFriends)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, FriendsActivity.class));
-            }
-        });
-
 
     }
 
@@ -58,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResult(VKAccessToken res) {
                 Toast.makeText(MainActivity.this, "Good", Toast.LENGTH_SHORT).show();
-
+                startActivity(new Intent(MainActivity.this, MenuActivity.class));
             }
 
             @Override

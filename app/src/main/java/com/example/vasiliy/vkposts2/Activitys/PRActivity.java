@@ -134,17 +134,61 @@ public class PRActivity extends AppCompatActivity {
 
     private String message = "";
 
+
     private String clubs[] = {
+            "60191872",
             "34985835",
             "52255475",
             "24261502",
             "53294903",
-            "60191872",
             "33764742",
             "59721672",
             "46258034",
             "13295252"
+            //
+            //"8337923",
+            //"39130136"
     };
+
+    //33
+    /*
+    private String clubs[] = {
+            "52255475",
+            "34985835",
+            "24261502",
+            "53294903",
+            "33764742",
+            "59721672",
+            "46258034",
+            "13295252",
+            "33764742",
+            "8337923",
+            "39130136",
+            "72686157",
+            "36352266",
+            "74738426",
+            "11270102",
+            "57929163",
+            //
+            "39722061",
+            "77808180",
+            "41356567",
+            "24370682",
+            "32538224",
+            "47484197",
+            "52160189",
+            "39673900",
+            "59221166",
+            "61413825",
+            "13672693",
+            "55897568",
+            "17164406",
+            "62584051",
+            "47350356",
+            "52669455",
+            "68101640"
+    };
+    */
 
     TextView tvMadePost;
     ImageView img;
@@ -166,6 +210,7 @@ public class PRActivity extends AppCompatActivity {
         captchaUrl = "-1";
         captchaAnswer = "-1";
         postId = "-1";
+        accessToken = VKAccessToken.currentToken().accessToken;
 
         //VKSdk.login(this, scopes);
 
@@ -226,7 +271,6 @@ public class PRActivity extends AppCompatActivity {
         backgroundSendPosts = new BackgroundSendPosts();
         backgroundSendPosts.execute();
         img.setImageResource(R.drawable.galochkacheck);
-        accessToken = VKAccessToken.currentToken().accessToken;
     }
 
     private void stopSending() {
@@ -262,6 +306,12 @@ public class PRActivity extends AppCompatActivity {
                             response = doPostInComment(clubs[i]);
                     }
                     if (response == null) {
+                        captchaId = "-1";
+                        captchaUrl = "-1";
+                        captchaAnswer = "-1";
+                        postId = "-1";
+                        whereDoPost = VKPosts2Constants.DO_POST_ON_WALL;
+                        ++i;
                         continue;
                     }
                     switch (whatIsResponse(response)) {
@@ -272,7 +322,7 @@ public class PRActivity extends AppCompatActivity {
                             postId = "-1";
                             whereDoPost = VKPosts2Constants.DO_POST_ON_WALL;
                             ++cc;
-                            if (cc == 3) {
+                            if (cc == VKPosts2Constants.TWO_TIMES_DO_POST) {
                                 ++i;
                                 cc = 0;
                             }
@@ -281,11 +331,17 @@ public class PRActivity extends AppCompatActivity {
                             break;
                         case VKPosts2Constants.RESPONSE_WITH_CAPTCHA:
                             Map<String, String> captchaMap;
+                            //зачем это надо было?
+                            /*
                             if (captchaId.equals("-1") || captchaAnswer.equals("-1") || captchaUrl.equals("-1")) {
                                 captchaMap = getCaptcha(response);
                                 captchaId = captchaMap.get("captchaId");
                                 captchaUrl = captchaMap.get("captchaUrl");
                             }
+                            */
+                            captchaMap = getCaptcha(response);
+                            captchaId = captchaMap.get("captchaId");
+                            captchaUrl = captchaMap.get("captchaUrl");
                             isDoPost = false;
                             Intent intent = new Intent(PRActivity.this, InputCaptchaActivity.class);
                             intent.putExtra("countMadePosts", countSendedPosts);
@@ -294,6 +350,13 @@ public class PRActivity extends AppCompatActivity {
                             startActivityForResult(intent, VKPosts2Constants.INPUT_CAPTCHA_ACTIVITY_RESULT_CODE);
                             break;
                         case VKPosts2Constants.RESPONSE_WITH_CLOSE_WALL:
+                            /*
+                            if(!getErrorMsg(response).equals(VKPosts2Constants.VK_ERROR_MSG_GROUP_IS_BLOCKED)) {
+                                whereDoPost = VKPosts2Constants.DO_POST_IN_COMMENT;
+                            } else {
+                                ++i;
+                            }
+                            */
                             whereDoPost = VKPosts2Constants.DO_POST_IN_COMMENT;
                             break;
                         case VKPosts2Constants.VK_ERROR_CODE_TOO_MACH_REQUEST_PER_SECOND:
@@ -307,7 +370,6 @@ public class PRActivity extends AppCompatActivity {
                             ++i;
                             break;
                         default:
-
                             break;
                     }
                     if (i == clubs.length) {
@@ -316,6 +378,7 @@ public class PRActivity extends AppCompatActivity {
                     long timeWhenEndWait = System.currentTimeMillis() + VKPosts2Constants.VK_TIME_BETWEEN_DO_POST + (new Random().nextInt(2 * VKPosts2Constants.VK_RANDOM_TIME_RANGE) - VKPosts2Constants.VK_RANDOM_TIME_RANGE);
                     while (System.currentTimeMillis() < timeWhenEndWait) {
                     }
+
                 }
             }
             return null;
@@ -331,6 +394,20 @@ public class PRActivity extends AppCompatActivity {
         protected void onCancelled() {
             super.onCancelled();
             tvMadePost.setText("Сделано постов = " + String.valueOf(countSendedPosts));
+        }
+    }
+
+    private String getErrorMsg(String jsonString) {
+        JSONObject dataJsonObject = null;
+        if (jsonString == null) {
+            return null;
+        }
+        try {
+            dataJsonObject = new JSONObject(jsonString);
+            JSONObject response = dataJsonObject.getJSONObject("error");
+            return response.getString("error_msg");
+        } catch (JSONException e) {
+            return null;
         }
     }
 
@@ -372,6 +449,7 @@ public class PRActivity extends AppCompatActivity {
     private String doPostInComment(String club) {
         String requestString = null;
         String params = null;
+        //Зачем это????????????????????????????????????
         if (postId.equals("-1")) {
             requestString = "https://api.vk.com/method/wall.get";
             params = "owner_id=-" + club +
@@ -620,6 +698,9 @@ public class PRActivity extends AppCompatActivity {
         try {
             JSONObject resp = dataJsonObject.getJSONObject("error");
             int errorCode = resp.getInt("error_code");
+            /*
+            Это можно опримизировать!!!!!!!!!!!!!!!!
+             */
             switch (errorCode) {
                 case VKPosts2Constants.VK_ERROR_CODE_CAPTCHA:
                     return VKPosts2Constants.RESPONSE_WITH_CAPTCHA;
