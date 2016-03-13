@@ -12,7 +12,7 @@ import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity111 extends AppCompatActivity {
 
     private String[] scopes = new String[]{
             VKScope.FRIENDS,
@@ -33,13 +33,13 @@ public class LoginActivity extends AppCompatActivity {
         if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
             @Override
             public void onResult(VKAccessToken res) {
-                Toast.makeText(LoginActivity.this, "Good", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LoginActivity.this, MenuActivity.class));
+                Toast.makeText(LoginActivity111.this, "Good", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(LoginActivity111.this, MenuActivity.class));
             }
 
             @Override
             public void onError(VKError error) {
-                Toast.makeText(LoginActivity.this, "Bad", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity111.this, "Bad", Toast.LENGTH_SHORT).show();
 
             }
         })) {

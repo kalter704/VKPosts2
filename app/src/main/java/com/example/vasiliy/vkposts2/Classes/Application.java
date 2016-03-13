@@ -2,8 +2,7 @@ package com.example.vasiliy.vkposts2.Classes;
 
 import android.content.Intent;
 
-import com.example.vasiliy.vkposts2.Activitys.LoginActivity;
-import com.example.vasiliy.vkposts2.Activitys.MainActivity;
+import com.example.vasiliy.vkposts2.Activitys.LoginActivity111;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKAccessTokenTracker;
 import com.vk.sdk.VKSdk;
@@ -14,7 +13,7 @@ public class Application extends android.app.Application{
         @Override
         public void onVKAccessTokenChanged(VKAccessToken oldToken, VKAccessToken newToken) {
             if (newToken == null) {
-                Intent intent = new Intent(Application.this, LoginActivity.class);
+                Intent intent = new Intent(Application.this, LoginActivity111.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

@@ -1,0 +1,19 @@
+<LinearLayout
+    style="@style/Container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btnGoToPR"
+        style="@style/Button"
+        android:layout_marginTop="16dp"
+        android:text="Пиарить"/>
+
+    <Button
+        android:id="@+id/btnGoToFriends"
+        style="@style/Button"
+        android:layout_marginTop="16dp"
+        android:text="Друзья"/>
+</LinearLayout>

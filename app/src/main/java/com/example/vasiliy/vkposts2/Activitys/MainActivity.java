@@ -4,7 +4,9 @@ import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -20,10 +22,12 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String[] scopes = new String[]{
+    private static final String[] scopes = new String[]{
             VKScope.FRIENDS,
             VKScope.WALL
     };
+
+    private boolean isResumed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,39 +37,71 @@ public class MainActivity extends AppCompatActivity {
         //String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
         //System.out.println(Arrays.asList(fingerprints));
 
-        //com.example.vasiliy.vkposts2.Classes.Application applicationM = new com.example.vasiliy.vkposts2.Classes.Application();
-        //applicationM.onCreate();
-
-        VKSdk.login(this, scopes);
-
-        /*
-        if(VKSdk.wakeUpSession(this)) {
-            VKSdk.login(this, scopes);
-        } else {
-            Toast.makeText(MainActivity.this, "FALSE", Toast.LENGTH_SHORT).show();
-        }
-        */
-
-
-        //startActivity(new Intent(MainActivity.this, MenuActivity.class));
-
-        /*
-        if(VKAccessToken.currentToken().isExpired()) {
-            VKSdk.login(this, scopes);
-        } else {
-            startActivity(new Intent(MainActivity.this, MenuActivity.class));
-        }
-        */
-
-        ((Button) findViewById(R.id.btnLogin)).setOnClickListener(new View.OnClickListener() {
+        VKSdk.wakeUpSession(this, new VKCallback<VKSdk.LoginState>() {
             @Override
-            public void onClick(View v) {
-                VKSdk.login(MainActivity.this, scopes);
+            public void onResult(VKSdk.LoginState res) {
+                if (isResumed) {
+                    switch (res) {
+                        case LoggedOut:
+                            showLogin();
+                            break;
+                        case LoggedIn:
+                            showMenu();
+                            break;
+                        case Pending:
+                            break;
+                        case Unknown:
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void onError(VKError error) {
+
             }
         });
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isResumed = true;
+        if (VKSdk.isLoggedIn()) {
+            showMenu();
+        } else {
+            showLogin();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        isResumed = false;
+        super.onPause();
+    }
+
+    private void showMenu() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, new MenuFragment())
+                .commitAllowingStateLoss();
+    }
+
+    private void showLogin() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, new LoginFragment())
+                .commitAllowingStateLoss();
+    }
+
+    private void startPRActivity() {
+        startActivity(new Intent(this, PRActivity.class));
+    }
+
+    private void startFriendsActivity() {
+        startActivity(new Intent(this, FriendsActivity.class));
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -73,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResult(VKAccessToken res) {
                 Toast.makeText(MainActivity.this, "Good", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, MenuActivity.class));
+                //startActivity(new Intent(MainActivity.this, MenuActivity.class));
             }
 
             @Override
@@ -86,4 +122,63 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public static class LoginFragment extends android.support.v4.app.Fragment {
+        public LoginFragment() {
+            super();
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View v = inflater.inflate(R.layout.fragment_login, container, false);
+
+            v.findViewById(R.id.btnLogin).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    VKSdk.login(getActivity(), scopes);
+                }
+            });
+            return v;
+        }
+
+    }
+
+    public static class MenuFragment extends android.support.v4.app.Fragment {
+        public MenuFragment() {
+            super();
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View v = inflater.inflate(R.layout.fragment_menu, container, false);
+
+            v.findViewById(R.id.btnGoToPR).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((MainActivity) getActivity()).startPRActivity();
+                }
+            });
+
+            v.findViewById(R.id.btnGoToFriends).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((MainActivity) getActivity()).startFriendsActivity();
+                }
+            });
+            return v;
+        }
+    }
+
 }
+
+
+
+/*
+
+        ((Button) findViewById(R.id.btnLogin)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VKSdk.login(MainActivity.this, scopes);
+            }
+        });
+
+ */

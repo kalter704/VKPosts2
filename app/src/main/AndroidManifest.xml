@@ -17,7 +17,6 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -26,7 +25,7 @@
             android:label="ServiceActivity"
             android:theme="@style/VK.Transparent" />
         <activity
-            android:name=".Activitys.LoginActivity"
+            android:name=".Activitys.LoginActivity111"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activitys.InputCaptchaActivity"
