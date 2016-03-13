@@ -25,9 +25,6 @@
             android:label="ServiceActivity"
             android:theme="@style/VK.Transparent" />
         <activity
-            android:name=".Activitys.LoginActivity111"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".Activitys.InputCaptchaActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -41,9 +38,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activitys.ShowListActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activitys.MenuActivity"
             android:screenOrientation="portrait" />
     </application>
 
