@@ -39,7 +39,6 @@
             android:layout_width="325px"
             android:layout_height="125px"
             android:id="@+id/imageView"
-            android:src="@drawable/vklogo"
             android:layout_below="@+id/btnOk"
             android:layout_toRightOf="@+id/textView"
             android:layout_toEndOf="@+id/textView"
