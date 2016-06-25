@@ -20,6 +20,9 @@ import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
+import com.vk.sdk.util.VKUtil;
+
+import java.util.Arrays;
 
 //public class MainActivity extends ActionBarActivity {
 public class MainActivity extends AppCompatActivity {
@@ -36,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
-        //System.out.println(Arrays.asList(fingerprints));
+        String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
+        System.out.println(Arrays.asList(fingerprints));
 
         VKSdk.wakeUpSession(this, new VKCallback<VKSdk.LoginState>() {
             @Override

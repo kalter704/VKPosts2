@@ -13,6 +13,7 @@ package com.example.vasiliy.vkposts2.Activitys;
         import com.example.vasiliy.vkposts2.R;
         import com.example.vasiliy.vkposts2.Classes.VKPosts2Constants;
         import com.vk.sdk.VKAccessToken;
+        import com.vk.sdk.util.VKUtil;
 
         import org.json.JSONArray;
         import org.json.JSONException;
@@ -29,6 +30,7 @@ package com.example.vasiliy.vkposts2.Activitys;
         import java.net.MalformedURLException;
         import java.net.ProtocolException;
         import java.net.URL;
+        import java.util.Arrays;
         import java.util.HashMap;
         import java.util.Map;
         import java.util.Random;
@@ -134,7 +136,16 @@ public class PRActivity extends AppCompatActivity {
 
     private String message = "";
 
+    private String clubs[] = {
+            "34985835",
+            "24261502",
+            "33764742",
+            "59721672",
+            "46258034",
+            "13295252"
+    };
 
+    /*
     private String clubs[] = {
             "60191872",
             "34985835",
@@ -149,6 +160,7 @@ public class PRActivity extends AppCompatActivity {
             //"8337923",
             //"39130136"
     };
+    */
 
     //33
     /*
